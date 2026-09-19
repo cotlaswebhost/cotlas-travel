@@ -1,0 +1,809 @@
+/* Cotlas Travel Desk Frontend Styles */
+
+/* Gallery Grid Layout (1 Big, 3 Small) */
+.ctd-gallery-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 50% Left, 50% Right */
+    grid-template-rows: 410px; /* Fixed height for the whole block */
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* LEFT COLUMN: Item 1 (Big Image) */
+.ctd-gallery-grid-layout .item-1 {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    height: 100%;
+}
+
+/* RIGHT COLUMN: Nested Grid for Items 2, 3, 4 */
+/* We can't nest easily without changing HTML structure, so we use grid-row/column spanning tricks */
+
+/* Re-define grid for the container to handle the right side split */
+.ctd-gallery-grid-layout {
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    grid-template-rows: 200px 200px; /* Two rows of 200px */
+    gap: 10px;
+}
+
+/* Item 1: Left Column (Spans 2 rows) */
+.ctd-gallery-grid-layout .item-1 {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+}
+
+/* Item 2: Right Column, Top Row (Wide) */
+.ctd-gallery-grid-layout .item-2 {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    border-top-right-radius: 12px;
+}
+
+/* To split the bottom right into two, we need to adjust the grid to have more columns implicitly or change HTML. 
+   Since HTML is flat list of items, we need a 4-column grid? 
+   No, let's use a 2x2 grid on the right. 
+   So total grid: 2 columns? No.
+   Let's make it a 4-column grid:
+   Col 1-2: Big Image
+   Col 3-4: Right side stuff.
+*/
+
+.ctd-gallery-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 Columns */
+    grid-template-rows: 230px 230px; /* 2 Rows */
+    gap: 20px;
+}
+
+/* Item 1: Left Half (Spans Cols 1-2, Rows 1-2) */
+.ctd-gallery-grid-layout .item-1 {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+}
+
+/* Item 2: Right Top (Spans Cols 3-4, Row 1) */
+.ctd-gallery-grid-layout .item-2 {
+    grid-column: 3 / 5;
+    grid-row: 1 / 2;
+    border-radius: 12px;
+}
+
+/* Item 3: Right Bottom Left (Col 3, Row 2) */
+.ctd-gallery-grid-layout .item-3 {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+}
+
+/* Item 4: Right Bottom Right (Col 4, Row 2) */
+.ctd-gallery-grid-layout .item-4 {
+    grid-column: 4 / 5;
+    grid-row: 2 / 3;
+    position: relative;
+    border-bottom-right-radius: 12px;
+}
+
+/* Common Image Styles */
+.ctd-gallery-grid-layout .ctd-gallery-item {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.ctd-gallery-grid-layout .ctd-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.ctd-gallery-grid-layout .ctd-gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Gallery Overlay Button */
+.ctd-gallery-overlay {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 2;
+}
+
+.ctd-gallery-btn {
+    background: #fff;
+    color: #333;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ctd-gallery-btn:hover {
+    background: #4CAF50;
+    color: #ffffff;
+}
+
+.ctd-gallery-btn svg {
+    width: 18px;
+    height: 18px;
+    color: inherit;
+}
+.ctd-gallery-btn svg:hover {
+    color: inherit;
+}
+/* Responsive adjustments - CAROUSEL MODE */
+
+/* Hide cloned items on desktop to prevent grid breakage */
+@media (min-width: 1025px) {
+    .ctd-gallery-grid-layout .ctd-cloned {
+        display: none !important;
+    }
+}
+
+/* Tablet & Mobile Base Styles (Carousel) */
+@media (max-width: 1024px) {
+    .ctd-gallery-grid-layout {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        grid-template-columns: unset;
+        grid-template-rows: unset;
+        height: 300px; /* Fixed height for carousel */
+        gap: 10px;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+    }
+    
+    .ctd-gallery-grid-layout::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+
+    /* Reset all items to be slider slides */
+    .ctd-gallery-grid-layout .ctd-gallery-item {
+        height: 100%;
+        scroll-snap-align: start;
+        border-radius: 12px; /* Restore rounded corners for all */
+        margin: 0;
+        
+        /* Default to 2 columns (Tablet) */
+        flex: 0 0 calc(50% - 5px);
+        width: calc(50% - 5px);
+        min-width: calc(50% - 5px);
+    }
+
+    /* Reset Grid Positioning */
+    .ctd-gallery-grid-layout .item-1,
+    .ctd-gallery-grid-layout .item-2,
+    .ctd-gallery-grid-layout .item-3,
+    .ctd-gallery-grid-layout .item-4 {
+        grid-column: unset;
+        grid-row: unset;
+        border-radius: 12px;
+    }
+    
+    /* Ensure images fill the card */
+    .ctd-gallery-grid-layout .ctd-gallery-item img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    /* Hide Gallery Button in Mobile/Tablet */
+    .ctd-gallery-overlay {
+        display: none;
+    }
+}
+
+/* Mobile Specific (1 Column Carousel) */
+@media (max-width: 767px) {
+    .ctd-gallery-grid-layout {
+        height: 250px; /* Slightly shorter on mobile */
+    }
+    
+    .ctd-gallery-grid-layout .ctd-gallery-item {
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 100%;
+    }
+}
+
+/* Slider Dots */
+.ctd-gallery-dots {
+    display: none; /* Hidden on desktop */
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    width: 100%;
+    /* Position absolutely at bottom if needed, or just below */
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    z-index: 10;
+}
+
+@media (max-width: 1024px) {
+    /* Wrap gallery to separate it from dots */
+    .ctd-gallery-grid-layout {
+        position: relative; 
+        padding-bottom: 0; 
+        margin-bottom: 10px; /* Space between slider and dots */
+        scroll-behavior: smooth; /* Native smooth scroll */
+    }
+    
+    .ctd-gallery-dots {
+        display: flex;
+        justify-content: center; 
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        position: relative; /* Ensure it stays in flow */
+        z-index: 5;
+    }
+    
+    /* Disable pointer events on links in mobile/tablet to prevent lightbox */
+    .ctd-gallery-grid-layout .ctd-gallery-item a {
+        pointer-events: none;
+        cursor: default;
+    }
+}
+
+.ctd-dot {
+    width: 8px;
+    height: 8px;
+    background: #ccc; 
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ctd-dot.active {
+    background: #333; /* Dark active color */
+    transform: scale(1.2);
+}
+.ctd-highlights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.ctd-highlights-list li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+.ctd-highlights-list li svg {
+    position: absolute;
+    left: 0;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    color: #046c78; /* Example Color */
+    flex-shrink: 0;
+}
+
+.ctd-includes-list,
+.ctd-excludes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+.ctd-includes-list li,
+.ctd-excludes-list li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+.ctd-includes-list li svg,
+.ctd-excludes-list li svg {
+    position: absolute;
+    left: 0;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+.ctd-includes-list li svg {
+    color: #2e7d32;
+}
+.ctd-excludes-list li svg {
+    color: #b32d2e;
+    display: block;
+    fill: currentColor;
+}
+
+/* Itinerary - Timeline Redesign */
+.ctd-itinerary-container {
+    width: 100%;
+}
+
+.ctd-itinerary-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.ctd-itinerary-main-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.ctd-expand-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ctd-switch-label {
+    font-size: 16px;
+    color: #666;
+    cursor: pointer;
+}
+
+/* Switch Toggle (iOS style) */
+.ctd-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.ctd-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.ctd-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.ctd-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .ctd-slider {
+    background-color: #046c78; /* Theme Teal */
+}
+
+input:focus + .ctd-slider {
+    box-shadow: 0 0 1px #046c78;
+}
+
+input:checked + .ctd-slider:before {
+    transform: translateX(18px);
+}
+
+.ctd-slider.round {
+    border-radius: 34px;
+}
+
+.ctd-slider.round:before {
+    border-radius: 50%;
+}
+
+/* Timeline List */
+.ctd-itinerary-wrapper {
+    position: relative;
+    /* Dotted Line on the left */
+    border-left: 2px dashed #046c78;
+    margin-left: 20px;
+    padding-left: 40px;
+}
+
+.ctd-itinerary-item {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.ctd-itinerary-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Markers */
+.ctd-itinerary-marker {
+    position: absolute;
+    left: -62px; /* Adjust to center on line */
+    top: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff; /* Mask line behind marker */
+}
+
+/* Inactive Circle */
+.ctd-marker-circle {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #046c78;
+    border-radius: 50%;
+    background: #fff;
+}
+
+/* Active Pin */
+.ctd-marker-pin {
+    display: none;
+    width: 42px;
+    height: 42px;
+    background: #046c78;
+    border-radius: 50%;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.ctd-marker-pin svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2px;
+}
+
+/* Active State Styles */
+.ctd-itinerary-item.active .ctd-marker-circle {
+    display: none;
+}
+.ctd-itinerary-item.active .ctd-marker-pin {
+    display: flex;
+}
+/* Adjust marker position when pin is shown to center it correctly */
+.ctd-itinerary-item.active .ctd-itinerary-marker {
+    left: -61px;
+    top: -3px;
+}
+
+.ctd-itinerary-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    gap: 40px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.ctd-itinerary-item.active .ctd-itinerary-header {
+    border-bottom: none;
+}
+
+.ctd-itinerary-day-title {
+    margin: 0;
+    font-size: 18px;
+    line-height: 2;
+    font-weight: 700;
+}
+
+.ctd-itinerary-content {
+    display: none; /* Collapsed by default */
+    color: #666;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.ctd-itinerary-toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.ctd-itinerary-item.active .ctd-itinerary-content {
+    display: block;
+}
+
+.ctd-itinerary-item.active .ctd-itinerary-toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* Itinerary Flex Layout (Image Left, Text Right) */
+.ctd-itinerary-flex {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.ctd-itinerary-image {
+    flex: 0 0 200px;
+    width: 200px;
+    height: 200px;
+}
+
+.ctd-itinerary-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+.ctd-itinerary-text {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 500;
+    color: #0f1d23;
+}
+
+/* Mobile Responsive for Itinerary */
+@media (max-width: 767px) {
+    .ctd-itinerary-flex {
+        flex-direction: column;
+    }
+    
+    .ctd-itinerary-image {
+        flex: 0 0 auto;
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+    }
+    
+    .ctd-itinerary-image img {
+        height: 100%;
+        max-height: 300px;
+    }
+}
+
+
+/* FAQs - Accordion */
+.ctd-faqs-wrapper {
+    /* border: 1px solid #e5e5e5; */
+    border-radius: 4px;
+}
+.ctd-faq-item {
+    /* border-bottom: 1px solid #e5e5e5; */
+    margin-bottom: 21px;
+}
+.ctd-faq-item:last-child {
+    border-bottom: none;
+}
+.ctd-faq-header {
+    padding: 15px 20px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+.ctd-faq-content {
+    display: none;
+    padding: 15px 20px;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+}
+.ctd-faq-item.active .ctd-faq-content {
+    display: block;
+}
+.ctd-faq-icon {
+    transition: transform 0.3s ease;
+}
+.ctd-faq-item.active .ctd-faq-icon {
+    transform: rotate(180deg);
+}
+
+/* Extra Services */
+.ctd-extra-services {
+    display: grid;
+    gap: 15px;
+}
+.ctd-service-item {
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 4px;
+}
+.ctd-service-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Downloads */
+.ctd-downloads {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.ctd-download-item a {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Overview & More Info */
+.ctd-section-title {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.gb-text.price {
+    font-size: 1.25em;
+    font-weight: 700;
+}
+.gb-text.price .pricing-type {
+    font-size: 0.85em;
+    font-weight: 500;
+    margin-left: 6px;
+}
+.service-description p {
+    margin-bottom: 5px;
+}
+.three-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Controls number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4; /* Adjust based on your font */
+    max-height: calc(1.4em * 3); /* line-height × number of lines */
+}
+.four-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Change to 4 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+    max-height: calc(1.4em * 4); /* line-height × 4 */
+}
+
+/* Responsive Map Iframe */
+.ctd-map-iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    position: relative;
+}
+.ctd-map-iframe iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Search Bar */
+.ctd-search-form {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.ctd-search-bar {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 8px 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ctd-search-field {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    position: relative;
+    border-right: 1px solid #eee;
+    min-width: 150px;
+}
+
+.ctd-search-field:last-child {
+    border-right: none;
+}
+
+.ctd-search-field i {
+    color: #666;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.ctd-search-field input,
+.ctd-search-field select {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-size: 15px;
+    color: #333;
+    outline: none;
+    padding: 10px 0;
+}
+
+.ctd-search-field input::placeholder {
+    color: #888;
+}
+
+/* Remove default select styling if possible, or style nicely */
+.ctd-search-field select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.ctd-search-submit {
+    padding-left: 10px;
+}
+
+.ctd-search-submit button {
+    background: #f7a028; /* Orange from screenshot */
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    white-space: nowrap;
+}
+
+.ctd-search-submit button:hover {
+    background: #e6911e;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ctd-search-bar {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 20px;
+        gap: 15px;
+    }
+    
+    .ctd-search-field {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+    }
+    
+    .ctd-search-submit {
+        width: 100%;
+        padding-left: 0;
+        margin-top: 10px;
+    }
+    
+    .ctd-search-submit button {
+        width: 100%;
+    }
+}

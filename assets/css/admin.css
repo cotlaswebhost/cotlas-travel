@@ -1,0 +1,1095 @@
+/* Cotlas Travel Desk Admin Styles */
+.ctd-image-preview img {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border: 1px solid #ccc;
+    padding: 5px;
+    background: #fff;
+    margin-top: 10px;
+}
+
+/* Taxonomy List Table Image Column */
+.column-ctd_image {
+    width: 74px; /* Width for 50px image + padding */
+}
+
+.ctd-admin-term-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    display: block;
+}
+
+/* Limit Description Column to 3 lines */
+.wp-list-table .column-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    /* Ensure height doesn't break layout too much, though line-clamp handles visibility */
+    max-height: 4.5em; /* Fallback/Safety (approx 1.5em * 3) */
+}
+
+/* Metabox Styles - Improved for Better UI */
+.ctd-metabox-wrapper {
+    display: flex;
+    /* height: 800px; Removed fixed height */
+    min-height: 600px;
+    background: #fff;
+    border: 1px solid #e2e4e7;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    border-radius: 4px;
+    /* overflow: hidden; Removed to allow window scroll */
+    position: relative;
+    align-items: stretch; /* Ensure sidebar stretches with content */
+}
+
+.ctd-metabox-tabs {
+    width: 220px;
+    background: #eaf0fa;
+    border-right: 1px solid #e2e4e7;
+    margin: 0;
+    padding: 10px;
+    flex-shrink: 0;
+    list-style: none;
+    /* overflow-y: auto; Removed independent scroll */
+    height: 100%;
+}
+
+.ctd-metabox-tabs li {
+    margin: 0;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #e2e4e7;
+    border-left: 4px solid transparent;
+    font-weight: 500;
+    color: #1d2327;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.ctd-metabox-tabs li .dashicons {
+    margin-right: 12px;
+    color: #0b0b0b;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.ctd-metabox-tabs li:hover {
+    background: #fff;
+    color: #0c0d0d;
+    border-radius: 50px;
+    padding: 12px 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.ctd-metabox-tabs li.active {
+    background: #4CAF50;
+    border-left-color: #4CAF50;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 50px;
+    margin-right: 0px; /* Overlap border */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-shadow: inset 0 1px 0 #4CAF50; /* Top highlight for depth */
+}
+
+.ctd-metabox-tabs li.active .dashicons {
+    color: #ffffff;
+}
+
+.ctd-metabox-content {
+    flex-grow: 1;
+    background: #fff;
+    /* height: 100%; */
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+}
+
+.ctd-tab-pane {
+    display: none;
+    /* height: 100%; */
+    flex-direction: column;
+}
+
+.ctd-tab-pane.active {
+    display: flex;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tab Heading - Sticky/Fixed at Top */
+.ctd-tab-header {
+    padding: 8px 20px 8px 25px;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f1;
+    flex-shrink: 0; /* Don't shrink */
+    z-index: 10;
+    display: flex;
+    position: sticky;
+    top: 0px; /* Offset for WP Admin Bar */
+}
+
+.ctd-tab-heading {
+    margin: 0;
+    font-size: 18px!important;
+    font-weight: 600!important;
+    color: #1d2327;
+}
+
+/* Tab Fields - Scrollable Area */
+.ctd-tab-fields {
+    padding: 25px 30px;
+    /* overflow-y: auto; Removed independent scroll */
+    flex-grow: 1;
+}
+hr {
+    border: 0;
+    padding-bottom: 15px;
+    border-top: 1px solid #dcdcde;
+    border-bottom: 1px solid #f6f7f7;
+}
+/* Form Fields */
+.ctd-form-field {
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    padding-top: 10px;
+    border-bottom: 1px solid #f0f0f1;
+    display: flex;
+     /* Align label and input vertically */
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.ctd-form-field:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.ctd-form-field label {
+    display: inline-flex;
+    font-weight: 600;
+    position: relative;
+    margin: 0;
+    font-size: 15px;
+    color: #3c434a;
+    width: 250px; /* Fixed width for labels */
+    flex-shrink: 0; /* Prevent label shrinking */
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 3px;
+}
+
+.ctd-input-wrap {
+    flex-grow: 1; /* Input takes remaining space */
+    display: flex;
+    gap: 10px;
+    max-width: 100%; /* Or whatever max width you prefer */
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.ctd-duration-group {
+    display: flex;
+    gap: 10px;
+    max-width: 100%; /* Or whatever max width you prefer */
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.duration-selector {
+    display: flex;
+    flex-grow: 1;
+    gap: 10px;
+    max-width: 100%; /* Or whatever max width you prefer */
+    width: auto;
+    flex-direction: row;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    align-items: center;
+}
+/* Inputs Styling */
+.ctd-form-field input[type="text"],
+.ctd-form-field input[type="number"],
+.ctd-form-field select,
+.ctd-form-field textarea {
+    width: 100%;
+    max-width: 100%; /* Take full width of container */
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 8px 12px;
+    height: 45px; /* Taller inputs */
+    line-height: 40px;
+    box-shadow: none;
+    transition: border-color 0.2s ease;
+}
+
+.ctd-form-field textarea {
+    height: auto;
+    line-height: 1.5;
+    padding: 10px 12px;
+}
+
+.ctd-form-field input:focus,
+.ctd-form-field select:focus,
+.ctd-form-field textarea:focus {
+    border-color: #2271b1;
+    outline: none;
+}
+.ctd-sub-repeater-item input[type=date] {
+    min-height: 45px!important;
+}
+.ctd-duration-days {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    gap: 0;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+.ctd-duration-nights {
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 0px;
+    max-width: 100%;
+    align-items: center;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+.ctd-duration-nights .ctd-suffix {
+    padding: 13px 12px;
+    border-radius:3px;
+    background-color: #e8f2fc;
+    width: 50px !important;
+    margin-left: -1px;
+    margin: -1px;
+    border: 0px solid #ffffff;
+}
+.ctd-duration-group input[type="number"] {
+    width: 64px!important;
+    border: 0px solid #dcdcde;
+}
+.ctd-duration-group select{
+    width: 80px!important;
+    margin-left: -1px;
+    margin: -1px;
+    width: auto;
+    padding: 0px 12px;
+    background-color: #e8f2fc;
+    border: 1px solid #ffffff;
+}
+/* Specific Field Header for Toggle (since it's a bit different) */
+.ctd-field-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%; /* Take full width */
+    max-width: 100%; /* Match label + input width roughly */
+}
+
+/* Ensure label in field header behaves similarly or override if needed */
+.ctd-field-header label:first-child {
+    width: 250px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+/* Age Fields Container */
+.ctd-age-fields {
+    /* background: #f6f7f7; */
+    padding: 20px;
+    /* border: 1px solid #dcdcde; */
+    border-radius: 6px;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 15px;
+    /* margin-left: 250px; */ /* Indent to align with inputs */
+    display: flex; /* Make it a row */
+    gap: 20px; /* Space between columns */
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ctd-sub-field {
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column; /* Stack label and input inside sub-field */
+    align-items: flex-start;
+    gap: 5px; 
+    flex: 1; /* Equal width columns */
+}
+
+.ctd-sub-field label {
+    margin-bottom: 0;
+    font-weight: 500;
+    min-width: auto; /* Reset min-width for sub-labels */
+    width: auto;
+}
+
+.ctd-sub-field input {
+    max-width: 100%;
+    width: 100%;
+}
+
+
+/* Select2 Styling Overrides - Fix Width */
+.select2-container {
+    width: 100% !important; /* Force full width within the input wrap */
+}
+.select2-container--default .select2-selection--single {
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 40px;
+    padding-left: 12px;
+    color: #3c434a;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 38px;
+    right: 5px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* Toggle Switch */
+.ctd-switch {
+  position: relative!important;
+  display: inline-flex!important;
+  width: 53px !important;
+  height: 21px!important;
+  background-color: rgb(225, 225, 225);
+  margin-left: 0!important;
+  border-radius: 34px;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+.ctd-time-selector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 150px;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+.ctd-time-selector select {
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 8px 12px;
+    height: 45px;
+    line-height: 30px;
+    box-shadow: none;
+    transition: border-color 0.2s ease;
+}
+.ctd-switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ctd-slider {
+  position: absolute;
+  display: inline-flex;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0px;
+  bottom: 0;
+  background-color: rgb(225, 225, 225);
+  -webkit-transition: .4s;
+  transition: .4s;
+  align-items: center;
+}
+
+.ctd-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  top: 2px;
+  left: 5px;
+  bottom: 9px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .ctd-slider {
+  background-color: #4CAF50;
+}
+
+input:focus + .ctd-slider {
+  box-shadow: 0 0 1px #2271b1;
+}
+
+input:checked + .ctd-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.ctd-slider.round {
+  border-radius: 34px;
+}
+
+.ctd-slider.round:before {
+  border-radius: 50%;
+}
+
+/* Repeater Styles */
+.ctd-repeater-wrapper {
+    width: 100%;
+}
+
+.ctd-repeater-item {
+    background: #ffffff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding: 15px;
+    position: relative;
+}
+
+.ctd-repeater-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.ctd-repeater-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.ctd-repeater-remove {
+    color: #b32d2e;
+    text-decoration: none;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.ctd-repeater-remove:hover {
+    color: #d63638;
+}
+
+.ctd-repeater-add {
+    margin-top: 10px;
+}
+
+/* Trip Settings must stay put in the main column: no move up/down buttons. */
+#ctd_trip_settings .handle-order-higher,
+#ctd_trip_settings .handle-order-lower {
+    display: none;
+}
+
+/* Gallery Styles */
+.ctd-gallery-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.ctd-gallery-image {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.ctd-gallery-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.ctd-gallery-remove {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #b32d2e;
+    color: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.ctd-gallery-add {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.ctd-gallery-add:hover {
+    border-color: #2271b1;
+    color: #2271b1;
+}
+
+/* File Preview */
+.ctd-file-preview {
+    margin: 10px 0;
+}
+
+.ctd-file-preview a {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #f0f0f1;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #1d2327;
+    font-weight: 500;
+}
+
+.ctd-file-preview a:hover {
+    background: #fff;
+    border-color: #2271b1;
+    color: #2271b1;
+}
+
+/* NEW PRICING STYLES */
+.ctd-pricing-category-box {
+    background: #fff;
+    border: 1px solid #e2e4e7;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.ctd-pricing-cat-header {
+    background: #4CAF50;
+    padding: 15px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
+    border-bottom: 1px solid #e2e4e7;
+}
+
+.ctd-pricing-cat-header .dashicons {
+    margin-right: 8px;
+    transition: transform 0.2s;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+}
+
+.ctd-pricing-category-box.active .ctd-pricing-cat-header .dashicons {
+    transform: rotate(90deg);
+}
+
+.ctd-pricing-cat-content {
+    padding: 20px;
+    display: none; /* Hidden by default (collapsed) */
+}
+
+.ctd-pricing-category-box.active .ctd-pricing-cat-content {
+    display: block;
+}
+
+.ctd-form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.ctd-form-row:last-child {
+    margin-bottom: 0;
+}
+
+.ctd-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.ctd-col label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #3c434a;
+    font-size: 13px;
+}
+
+.ctd-input-group {
+    display: flex;
+    align-items: stretch;
+}
+
+.ctd-input-prefix {
+    background: #f0f0f1;
+    border: 1px solid #dcdcde;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #646970;
+    height: 45px;
+}
+
+.ctd-input-group input {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+/* Ensure inputs in ctd-col match general tab style (full width) */
+.ctd-col input,
+.ctd-col select {
+    width: 100%;
+    height: 45px;
+    line-height: normal;
+    padding: 8px 12px;
+}
+
+.ctd-col .description {
+    margin-top: 5px;
+    color: #646970;
+    font-style: italic;
+}
+
+/* Nested Tabs in Repeater */
+.ctd-nested-tabs-nav {
+    display: flex;
+    list-style: none;
+    margin: 0 0 15px 0;
+    height: 50px;
+    padding: 0;
+    border-bottom: 1px solid #dcdcde;
+}
+.ctd-nested-tabs-nav li {
+    margin: 0;
+    padding: 15px 15px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: none;
+    margin-bottom: -1px;
+    font-weight: 500;
+    color: #2271b1;
+}
+.ctd-nested-tabs-nav li.active {
+    border-color: #dcdcde;
+    background: #fff;
+    color: #1d2327;
+    font-weight: 600;
+    border-top: 2px solid #2271b1;
+    border-radius: 4px 4px 0 0;
+}
+.ctd-nested-tab-pane {
+    display: none;
+}
+.ctd-nested-tab-pane.active {
+    display: block;
+}
+
+/* Sub Repeater (Dates) */
+.ctd-sub-repeater-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+.ctd-sub-repeater-item input {
+    width: auto !important;
+    flex-grow: 1;
+}
+.ctd-remove-sub-repeater {
+    color: #b32d2e !important;
+    border: 1px solid #b32d2e !important;
+    background: #fff !important;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    line-height: 22px !important;
+    padding: 0 !important;
+    text-align: center;
+    cursor: pointer;
+}
+.ctd-remove-sub-repeater:hover {
+    background: #b32d2e !important;
+    color: #fff !important;
+}
+
+/* Limited Editor Placeholder Style */
+.ctd-limited-editor {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 15px;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+}
+.ctd-limited-editor:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* --- Sortable / Drag Handle --- */
+.ctd-sort-handle {
+    cursor: move;
+    color: #a7aaad;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+.ctd-sort-handle:hover {
+    color: #1d2327;
+}
+.ctd-sort-handle svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* --- Accordion (Itinerary) --- */
+.ctd-accordion-item {
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.ctd-accordion-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    font-size: 16px;
+    background: #4CAF50;
+    border-bottom: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-content: center;
+}
+
+.ctd-accordion-header:hover {
+    background: #8BC34A;
+    border-color: #8BC34A;
+}
+
+.ctd-accordion-item.active .ctd-accordion-header {
+    border-bottom-color: #8BC34A;
+    background: #8BC34A;
+}
+
+.ctd-accordion-title {
+    flex-grow: 1;
+    font-weight: 600;
+    color: #fff;
+    margin-left: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.ctd-accordion-toggle {
+    margin-right: 10px;
+    color: #ffffff;
+}
+.ctd-accordion-toggle .dashicons {
+    transition: transform 0.2s;
+}
+.ctd-accordion-item.active .ctd-accordion-toggle .dashicons {
+    transform: rotate(180deg);
+}
+
+.ctd-accordion-content {
+    display: none;
+    padding: 20px;
+}
+.ctd-accordion-item.active .ctd-accordion-content {
+    display: block;
+}
+
+.ctd-day-badge {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 12px;
+    color: #646970;
+}
+
+/* --- Clean Lists for Facts/Highlights --- */
+.ctd-simple-list-item {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+}
+
+.ctd-simple-list-item:hover {
+    border-color: #8c8f94;
+}
+
+.ctd-simple-input-wrap {
+    flex-grow: 1;
+    margin-right: 15px;
+}
+
+.ctd-simple-input-wrap input {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+    height: auto;
+    font-size: 14px;
+}
+.ctd-simple-input-wrap input:focus {
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+
+/* Fact Specific */
+.ctd-fact-label-display {
+    width: 200px;
+    flex-shrink: 0;
+    color: #1d2327;
+}
+
+/* Highlight Specific */
+.ctd-highlight-input {
+    width: 100%;
+}
+
+/* Custom Add Button Style */
+.ctd-repeater-add,
+.ctd-add-sub-repeater,
+.ctd-upload-file,
+#ctd_add_trip_fact_btn {
+    background: #4CAF50 !important;
+    border: 1px solid #4CAF50 !important;
+    color: #ffffff !important;
+    border-radius: 50px !important; /* Pill shape */
+    padding: 12px 20px !important;
+    font-weight: 500 !important;
+    font-size: 16px!important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: all 0.2s ease !important;
+    height: auto !important;
+    line-height: normal !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    /* margin-top: 10px!important; */
+}
+
+.ctd-repeater-add::before,
+.ctd-add-sub-repeater::before,
+.ctd-upload-file::before,
+#ctd_add_trip_fact_btn::before {
+    content: "\f132"; /* Dashicons plus */
+    font-family: dashicons;
+    font-size: 14px;
+    line-height: 1;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.ctd-repeater-add:hover,
+.ctd-add-sub-repeater:hover,
+.ctd-upload-file:hover,
+#ctd_add_trip_fact_btn:hover {
+    background: #FF5722 !important;
+    border-color: #FF5722 !important;
+    color: #ffffff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+.ctd-repeater-add:active,
+.ctd-add-sub-repeater:active,
+.ctd-upload-file:active,
+#ctd_add_trip_fact_btn:active {
+    transform: translateY(0);
+    box-shadow: none !important;
+}
+
+/* Isolated Block Editor Styles */
+.ctd-isolated-block-editor {
+    /* Originally hidden by JS, but good to have fallback */
+}
+
+.ctd-isolated-editor-container {
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    background: #fff;
+    position: relative;
+    width: 100%;
+}
+/* #poststuff h2 {
+    font-size: 14px!important;
+} Removed to fix H2 block styling */
+.ctd-isolated-editor-container:focus-within {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* Ensure the editor canvas takes up space */
+.ctd-isolated-editor-styles {
+    height: 86%;
+    width: 100%;
+    box-sizing: border-box;
+    /* padding: 15px; */ /* Add padding inside the wrapper */
+}
+
+.ctd-isolated-editor-styles.editor-styles-wrapper {
+    background: #fff;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* Make sure the writing flow fills the container */
+.ctd-isolated-editor-styles .block-editor-writing-flow {
+    /* height: 100%; */
+    min-height: 70px;
+}
+
+/* Ensure blocks use full width */
+.ctd-isolated-editor-styles .wp-block {
+    max-width: 100%;
+}
+
+/* Style the default block appender (the "Type / to choose a block" area) */
+.ctd-isolated-editor-styles .block-editor-default-block-appender textarea.block-editor-default-block-appender__content {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Plus icon visibility */
+.ctd-isolated-editor-styles .block-editor-inserter {
+    /* Ensure it's visible */
+}
+
+/* Fix for popovers appearing in weird places */
+.ctd-isolated-editor-container .components-popover {
+    /* position: absolute; */ /* Sometimes needed, but Portal usually handles it */
+}
+
+/* Ensure toolbar doesn't get cut off */
+.ctd-isolated-editor-container .block-editor-block-list__block {
+    max-width: 100%;
+}
+.ctd-isolated-editor-styles p{
+    font-size:18px!important;
+    font-weight:400!important;
+    color: rgb(82 84 86);
+}
+/* Fix Heading Styles in Isolated Editor */
+.ctd-isolated-editor-styles h1 { font-size: 2.5em!important; margin-bottom: 0.5em; font-weight: 700!important; color: #1d2327; }
+.ctd-isolated-editor-styles h2 { font-size: 2em!important; margin-bottom: 0.5em; font-weight: 700!important; color: #1d2327; }
+.ctd-isolated-editor-styles h3 { font-size: 1.75em!important; margin-bottom: 0.5em; font-weight: 700!important; color: #1d2327; }
+.ctd-isolated-editor-styles h4 { font-size: 1.5em!important; margin-bottom: 0.5em; font-weight: 700!important; color: #1d2327; }
+.ctd-isolated-editor-styles h5 { font-size: 1.25em!important; margin-bottom: 0.5em; font-weight: 700!important; color: #1d2327; }
+.ctd-isolated-editor-styles h6 { font-size: 1em!important; margin-bottom: 0.5em; font-weight: 700!important; color: #1d2327; }    
+
+/* Quote Block Styling to match WP Travel Engine */
+.ctd-isolated-editor-styles .wp-block-quote {
+    border-left: 4px solid #007cba; /* WordPress Blue or Theme Color */
+    margin: 20px 0;
+    padding: 20px;
+    background: #e8f2fc; /* Light blue background */
+    color: #555;
+    position: relative;
+}
+
+.ctd-isolated-editor-styles .wp-block-quote p {
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.ctd-isolated-editor-styles .wp-block-quote cite {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Fix Lists */
+.ctd-isolated-editor-styles ul, .ctd-isolated-editor-styles ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+.ctd-isolated-editor-styles ul { list-style-type: disc; }
+.ctd-isolated-editor-styles ol { list-style-type: decimal; }
+
+/* Fix Table */
+.ctd-isolated-editor-styles .wp-block-table {
+    margin-bottom: 1em;
+}
+.ctd-isolated-editor-styles .wp-block-table td, 
+.ctd-isolated-editor-styles .wp-block-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.ctd-editor-error {
+    padding: 20px;
+    color: #b32d2e;
+    background: #fcebeb;
+    border: 1px solid #b32d2e;
+    border-radius: 4px;
+}

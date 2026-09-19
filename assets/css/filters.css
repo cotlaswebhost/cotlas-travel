@@ -1,0 +1,257 @@
+/* Filter Sidebar */
+.ctd-filter-sidebar {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.ctd-filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.ctd-filter-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.ctd-clear-all {
+    font-size: 13px;
+    color: #e63946;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.ctd-filter-group {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #f5f5f5;
+    padding-bottom: 20px;
+}
+
+.ctd-filter-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.ctd-filter-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ctd-accordion-icon svg {
+    transition: transform 0.3s;
+}
+
+.ctd-filter-group.active .ctd-accordion-icon svg {
+    transform: rotate(180deg);
+}
+
+.ctd-filter-content {
+    display: block; /* Default open */
+}
+
+.ctd-filter-group.closed .ctd-filter-content {
+    display: none;
+}
+
+.ctd-filter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ctd-filter-list li {
+    margin-bottom: 10px;
+}
+
+.ctd-hidden-item {
+    display: none;
+}
+
+.ctd-checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ctd-checkbox-label input {
+    display: none;
+}
+
+.ctd-checkbox-custom {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.ctd-checkbox-label input:checked + .ctd-checkbox-custom {
+    background: #046c78;
+    border-color: #046c78;
+}
+
+.ctd-checkbox-label input:checked + .ctd-checkbox-custom::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ctd-term-name {
+    flex-grow: 1;
+}
+
+.ctd-term-count {
+    color: #999;
+    font-size: 12px;
+}
+
+.ctd-show-more {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #046c78;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Range Slider */
+.ctd-range-slider {
+    margin: 15px 5px;
+    height: 4px;
+    background: #e0e0e0;
+    border: none;
+}
+
+.ctd-range-slider .ui-slider-range {
+    background: #046c78;
+}
+
+.ctd-range-slider .ui-slider-handle {
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border: 2px solid #046c78;
+    border-radius: 50%;
+    top: -6px;
+    cursor: pointer;
+    outline: none;
+}
+
+.ctd-range-inputs {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.ctd-apply-filters-btn {
+    width: 100%;
+    background: #046c78;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.ctd-apply-filters-btn:hover {
+    background: #035660;
+}
+
+/* Sort Dropdown */
+.ctd-sort-dropdown select {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #fff;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+/* Select2 Customization */
+.select2-container--default .select2-selection--single {
+    height: 42px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: normal !important;
+    color: #333 !important;
+    padding-left: 12px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 40px !important;
+}
+
+.select2-dropdown {
+    border: 1px solid #ddd !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+}
+
+.select2-results__option {
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #046c78 !important;
+}
+
+/* Archive Search */
+.ctd-archive-search {
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+}
+
+.ctd-archive-search input {
+    width: 100%;
+    padding: 10px 15px 10px 40px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+    font-size: 14px !important;
+}
+
+.ctd-archive-search svg {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    /* fill: #999; User provided specific color in SVG, but we can override if needed */
+}
