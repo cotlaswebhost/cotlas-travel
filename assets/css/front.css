@@ -2659,3 +2659,34 @@ input:checked + .ctd-slider:before {
         background: #058e35 !important;
     }
 }
+
+/* Pricing Package Fixed Dates (ctd_package_item dates_list) */
+.ctd-dates-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ctd-dates-list .ctd-date-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.4;
+}
+
+.ctd-dates-list .ctd-date-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    line-height: 1;
+}
+
+.ctd-dates-list .ctd-date-icon .ctd-icon-calendar {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}

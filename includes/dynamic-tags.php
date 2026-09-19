@@ -238,7 +238,7 @@ add_action( 'init', function() {
                     ['value' => 'general_desc', 'label' => __( 'General Description', 'cotlas-travel' )],
                     ['value' => 'price', 'label' => __( 'Price (Requires Category ID)', 'cotlas-travel' )],
                     ['value' => 'dates', 'label' => __( 'Fixed Dates (Requires Enable Fixed Dates)', 'cotlas-travel' )],
-                    ['value' => 'dates_list', 'label' => __( 'Fixed Dates as HTML List', 'cotlas-travel' )],
+                    ['value' => 'dates_list', 'label' => __( 'Fixed Dates as HTML List (Icon + One Per Line)', 'cotlas-travel' )],
                 ],
             ],
             'index' => [
@@ -260,6 +260,11 @@ add_action( 'init', function() {
                 'type'    => 'text',
                 'label'   => __( 'Date Separator (For Fixed Dates)', 'cotlas-travel' ),
                 'default' => ', ',
+            ],
+            'dateindex' => [
+                'type'    => 'text',
+                'label'   => __( 'Single Date Number (1, 2, 3... - Leave empty for all)', 'cotlas-travel' ),
+                'default' => '',
             ],
         ],
         'return' => 'ctd_package_item_dynamic_tag',
@@ -830,6 +835,13 @@ function ctd_get_repeater_item( $meta_key, $index, $options = array(), $instance
     return null;
 }
 
+/**
+ * Calendar icon markup used by the fixed dates list output.
+ */
+function ctd_calendar_icon() {
+    return '<svg class="ctd-icon-calendar" aria-hidden="true" role="img" focusable="false" height="1em" width="1em" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"></path></svg>';
+}
+
 function ctd_format_inr( $amount ) {
     $amount = (string) $amount;
     $parts = explode( '.', $amount );
@@ -988,6 +1000,7 @@ function ctd_package_item_dynamic_tag( $options, $block, $instance ) {
 
         $date_format = isset( $options['date_format'] ) && '' !== $options['date_format'] ? $options['date_format'] : 'd M Y';
         $separator   = isset( $options['separator'] ) ? $options['separator'] : ', ';
+        $date_index  = isset( $options['dateindex'] ) ? intval( $options['dateindex'] ) : 0;
         $formatted   = array();
 
         foreach ( $dates as $date ) {
@@ -1003,8 +1016,27 @@ function ctd_package_item_dynamic_tag( $options, $block, $instance ) {
             return '';
         }
 
+        // Single date by position (1-based). Used to print one date per dynamic tag.
+        if ( $date_index > 0 ) {
+            $position = $date_index - 1;
+            if ( ! isset( $formatted[ $position ] ) ) {
+                return '';
+            }
+            if ( $field !== 'dates_list' ) {
+                return $formatted[ $position ];
+            }
+            $formatted = array( $formatted[ $position ] );
+        }
+
         if ( $field === 'dates_list' ) {
-            return '<ul class="ctd-fixed-dates"><li>' . implode( '</li><li>', array_map( 'esc_html', $formatted ) ) . '</li></ul>';
+            $items = '';
+            foreach ( $formatted as $formatted_date ) {
+                $items .= '<li class="ctd-date-item">'
+                    . '<span class="ctd-date-icon">' . ctd_calendar_icon() . '</span>'
+                    . '<span class="ctd-date-text">' . esc_html( $formatted_date ) . '</span>'
+                    . '</li>';
+            }
+            return '<ul class="ctd-dates-list">' . $items . '</ul>';
         }
 
         return implode( $separator, $formatted );

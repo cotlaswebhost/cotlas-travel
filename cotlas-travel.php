@@ -3,7 +3,7 @@
  * Plugin Name: Cotlas Travel
  * Plugin URI:  https://github.com/cotlaswebhost/cotlas-travel
  * Description: Travel desk plugin for Cotlas Travel sites. Registers the Trip post type and taxonomies, trip meta boxes, trip shortcodes, GenerateBlocks dynamic tags and the trip enquiry form.
- * Version:     1.1.0
+ * Version:     1.2.0
  * Author:      Vinay Shukla
  * Author URI:  https://cotlas.net/vinay404
  * Update URI:  https://api.github.com/repos/cotlaswebhost/cotlas-travel/releases/latest
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define constants.
-define( 'CTD_VERSION', '1.1.0' );
+define( 'CTD_VERSION', '1.2.0' );
 define( 'CTD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CTD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
